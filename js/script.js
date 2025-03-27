@@ -31,7 +31,16 @@ const renderPokemon = async (pokemon) => { /*Chegando aqui pega as informações
         pokemonImage.style.display = 'block';
         pokemonName.innerHTML = data.name;
         pokemonNumber.innerHTML = data.id;
+
+        //Se não tiver GIF vai ser foto estática 
         pokemonImage.src = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default']; /*caminho dos gifs dos pokemon */
+        const gifUrl = data['sprites']['versions']['generation-v']['black-white']['animated']['front_default'];
+        if (gifUrl){
+            pokemonImage.src = gifUrl;
+        } else{
+            pokemonImage.src = data['sprites']['front_default'];
+        }
+        
         input.value = '';
         searchPokemon = data.id;
 
@@ -109,9 +118,14 @@ buttonNext.addEventListener('click', () => {
     tipos.innerHTML = "";
 });
 
-
-
+document.body.addEventListener('click', () => {
+    const som = document.getElementById('som');
+    som.play(); // Inicia o som após interação
+});
+const som = document.getElementById('som');
+som.volume = 0.04;
 
 renderPokemon(searchPokemon);
+
 
 
